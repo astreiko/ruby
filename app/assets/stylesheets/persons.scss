@@ -1,3 +1,103 @@
 // Place all the styles related to the persons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.add-sticky {
+    cursor: default;
+    position:absolute;
+    top:100px;
+    right:10px;
+    font-size:200%;
+    background: DarkOrange;
+    border-radius:40px;
+    -webkit-border-radius:40px;
+    -moz-border-radius:40px;
+    text-align:center;
+    width:55px;
+    height:55px;
+}
+:focus {
+    outline:0;
+}
+.add-sticky:hover {
+    background: #474747;
+}
+.sticky {
+    width:300px;
+    background:snow;
+    box-shadow:3px 3px 10px rgba(0,0,0,0.45);
+    -webkit-box-shadow:3px 3px 10px rgba(0,0,0,0.45);
+    -moz-box-shadow:3px 3px 10px rgba(0,0,0,0.45);
+}
+.sticky-content {
+    min-height:150px;;
+    margin-left:30px;
+    padding:5px;
+}
+.sticky-header {
+    padding:5px;
+    background:#f3f3f3;
+    border-bottom:2px solid #fefefe;
+    box-shadow:0 3px 5px rgba(0,0,0,0.25);
+    -webkit-box-shadow:0 3px 5px rgba(0,0,0,0.25);
+    -moz-box-shadow:0 3px 5px rgba(0,0,0,0.25);
+}
+.sticky-status {
+    color:#ccc;
+    padding:5px;
+}
+.close-sticky {
+    background:#474747;
+    float:right;
+    cursor:default;
+    color:#ececec;
+    padding:1px 5px;
+    border-radius:20px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}
+.LightYellow-sticky {
+     background:LightYellow;
+     float:right;
+     cursor:default;
+     color:#ececec;
+     padding:1px 5px;
+     border-radius:20px;
+     -webkit-border-radius:20px;
+     -moz-border-radius:20px;
+ }
+.MistyRose-sticky {
+    background:MistyRose;
+    float:right;
+    cursor:default;
+    color:#ececec;
+    padding:1px 5px;
+    border-radius:20px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}
+.LightCyan-sticky {
+    background:LightCyan;
+    float:right;
+    cursor:default;
+    color:#ececec;
+    padding:1px 5px;
+    border-radius:20px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+}
+
+.LightYellow {
+    background: LightYellow;
+}
+
+.White {
+    background: White;
+}
+
+.MistyRose {
+    background: MistyRose;
+}
+
+.LightCyan {
+    background: LightCyan;
+}

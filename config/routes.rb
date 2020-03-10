@@ -12,6 +12,14 @@ Rails.application.routes.draw do
 
   resources :users, :collection => { :complete => :put}
 
-  get 'persons/block', as: 'block'
+  resources :users do
+    resources :stickies
+  end
+  #get 'sticky#index'
+  get 'sticky/index'
+  get 'stickies' => 'stickies#destroy'
+  #get 'persons/block', as: 'block'
+  post 'sticky'    => "stickies#create"
+
 
 end

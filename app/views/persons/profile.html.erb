@@ -1,64 +1,74 @@
-<script>
-$(function() {
-    $('#select_all').change(function(){
-        var checkboxes = $(this).closest('table').find(':checkbox');
-        if($(this).prop('checked')) {
-          checkboxes.prop('checked', true);
-        } else {
-          checkboxes.prop('checked', false);
-        }
-    });
-});
-</script>
-<body style="background: linear-gradient(90deg, #EECFBA, #C5DDE8)">
-<header>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<ul class="navbar-nav mr-auto"></ul>
-
-		<% if user_signed_in? %><span style="color:white">Hello, <%= current_user.name %>!&nbsp;&nbsp;</span><% end %>
-			<%= form_tag( update_users_path, :method => :put) do %>			
-			<ul class="list-group list-group-horizontal-xl">
-			<li class="list-group-item"><%= submit_tag "Banned/Unbanned", class: "btn btn-primary"%></li>
-			<li class="list-group-item"><%= link_to 'Home', root_path %></li>
-			<% if user_signed_in? %><li class="list-group-item"><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li><% end %>
-		</ul>
-    		
-	</div>
-</nav>
-</header>
-<main role="main">
-	<div class="jumbotron">
-		<div class="container">
-			<h1 class="display-3">Persons profile</h1>
-<% if current_user.active? %>
-			<table class="table table-hover">
-				<tr>
-					<th><input id="select_all" type="checkbox">&nbsp;select all</th>
-					<th>id</th>
-					<th>name</th>
-					<th>email</th>
-					<th>created at</th>
-					<th>last sign in at</th>
-					<th>active</th>
-					<th>actions</th>
-				</tr>
-				<% @users.each do |user| %><tr>
-					<td><%= check_box_tag 'user_id[]', user.id %></td>
-					<td><%= user.id %></td>
-					<td><%= user.name %></td>
-					<td><%= user.email %></td>
-					<td><%= user.created_at %></td>
-					<td><%= user.last_sign_in_at %></td>
-					<td><%= user.active %></td>
-					<td><%= link_to 'Destroy', user_path(user),
-						method: :delete,	
-						data: { confirm: 'Are you sure?' } %></td>
-				</tr><% end %>
-			</table>
-<% else %>Your account is locked.<% end %>
-		</div>
-	</div>
-</main>
+<% if user_signed_in? %>
+<%= javascript_tag do %>
+    window.stickies = <%=raw Sticky.where(["user_id = ?", current_user.id]).limit(1000).to_json %>;
 <% end %>
-</body> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+<script src="/packs/js/json2.js"></script>
+<script src="/packs/js/profile.js" data-turbolinks-track="reload"></script>
+<body style="background: linear-gradient(90deg, #EECFBA, #C5DDE8)">
+<script>
+if(performance.navigation.type == 2){
+    location.reload(true);}
+</script>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+           <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+              <ul class="navbar-nav mr-auto"></ul>
+              <% if user_signed_in? %>
+                  <span style="color:white">Hello, <%= current_user.name %>!&nbsp;&nbsp;</span><% end %>
+                 <%= form_tag( update_users_path, :method => :put) do %>
+                  <ul class="list-group list-group-horizontal-xl">
+                  <li class="list-group-item"><%= submit_tag "Banned/Unbanned", class: "btn btn-primary"%></li>
+                  <li class="list-group-item"><%= link_to 'Home', root_path %></li>
+                     <% if user_signed_in? %><li class="list-group-item"><%= link_to 'Log out', destroy_user_session_path, :method => :delete %></li><% end %>
+              </ul>
+          </div>
+      </nav>
+    </header>
+    <main role="main">
+       <div class="jumbotron">
+          <div class="container">
+             <h1 class="display-3">Persons profile</h1>
+             <table class="table table-hover">
+                <tr>
+                   <th>
+                   <input onclick="if($(this).attr('checked')) $(this).closest('table').find(':checkbox').attr('checked', true); else $(this).closest('table').find(':checkbox').attr('checked', false);" id="select_all" type="checkbox">
+                   &nbsp;select all
+                   </th>
+                   <th>id</th>
+                   <th>name</th>
+                   <th>email</th>
+                   <th>created at</th>
+                   <th>last sign in at</th>
+                   <th>active</th>
+                   <th>actions</th>
+                </tr>
+                <% @users.each do |user| %>
+                <tr>
+                <% if user.id!=34 %>
+               <td><%= check_box_tag 'user_id[]', user.id %></td>
+               <td><%= user.id %></td>
+               <td><%= user.name %></td>
+               <td><%= user.email %></td>
+               <td><%= user.created_at %></td>
+               <td><%= user.last_sign_in_at %></td>
+               <td><%= user.active %></td>
+               <td><%= link_to 'Destroy', user_path(user),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+                <% end %>
+                <% end %>
+             </table>
+          </div>
+       </div>
+    </main>
+</body>
+<% end %>
+<% else %>
+    <head>
+        <meta http-equiv="refresh" content="0;URL='https://astreika.herokuapp.com'" />
+    </head>
+<% end %>
+
